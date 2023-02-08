@@ -1,6 +1,16 @@
 const router = require('express').Router();
 const { User } = require('../../models');
 
+// renders a form to log in and a form to create a new account
+router.get('/login', (req, res) => {
+  if (req.session.loggedIn) {
+    res.redirect('/');
+    return;
+  }
+  res.render('login');
+});
+
+
 router.post('/', async (req, res) => {
   try {
     const userData = await User.create(req.body);
